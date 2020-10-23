@@ -1,14 +1,10 @@
 #+TITLE: Sberbank Ru-GPT Environment
 #+TAGS: cryptokasten, cryptokasten-env, gpt-3, sberbank, ru-gpt, ai, nlp, natural-language-processing, nltk, numpy, pandas, tensorflow, transformers
-#+PROPERTY: header-args :session *shell cryptokasten-create-from-template-environment* :results silent raw
+#+PROPERTY: header-args :session *shell sber-ru-gpt-env* :results silent raw
 #+OPTIONS: ^:nil
 
 [[https://github.com/cryptokasten][file:https://img.shields.io/badge/dynamic/json.svg?url=https://api.github.com/users/cryptokasten&label=Cryptokasten&query=$.public_repos]]
 [[https://github.com/cryptokasten-env][file:https://img.shields.io/badge/env-orange.svg]]
-
-** Environment description
-
-- Base docker image: [[https://github.com/cryptokasten/python-in-docker][python:3.9.0-buster]]
 
 ** Python requirements
 
@@ -23,10 +19,20 @@ regex==2020.1.8
 transformers==2.8.0
 #+END_SRC
 
-** Run
+** Dockerfile
+
+- Base docker image: [[https://github.com/cryptokasten/python-in-docker][python:3.6-buster]]
+
+#+BEGIN_SRC Dockerfile :tangle Dockerfile
+FROM python:3.6-buster
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+#+END_SRC
+
+** Build
 
 #+BEGIN_SRC sh
-docker run --rm -it cryptokasten/ru-gpt-env bash
+docker build -t cryptokasten/sber-ru-gpt-env .
 #+END_SRC
 
 ** References
